@@ -51,7 +51,7 @@ df
 
 # #  List of former presidents of India(i.e. Name , Term ofoffice) in data frame.
 
-# In[1]:
+# In[2]:
 
 
 import requests
@@ -59,21 +59,21 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 
-# In[2]:
+# In[3]:
 
 
 page = requests.get("https://presidentofindia.nic.in/former-presidents.htm")
 page
 
 
-# In[3]:
+# In[4]:
 
 
 soup = BeautifulSoup(page.content)
 soup
 
 
-# In[4]:
+# In[5]:
 
 
 first_title = soup.find('div', class_="presidentListing")
@@ -81,7 +81,7 @@ first_title = soup.find('div', class_="presidentListing")
 first_title
 
 
-# In[8]:
+# In[7]:
 
 
 first_title.text
@@ -254,261 +254,6 @@ df.head(10)
 
 # # Top 10 ODI Batsmen along with the records of their team andrating.
 
-# In[13]:
-
-
-from bs4 import BeautifulSoup
-import requests
-import pandas as pd
-
-
-# In[14]:
-
-
-page = requests.get("https://www.icc-cricket.com/rankings/mens/player-rankings/odi/batting")
-page
-
-
-# In[15]:
-
-
-soup = BeautifulSoup(page.content)
-soup
-
-
-# In[16]:
-
-
-player =soup.find('div',class_="rankings-block__banner--name-large")
-formated_player=player.text
-formated_player
-
-
-# In[17]:
-
-
-team = soup.find('div',class_="rankings-block__banner--nationality")
-team=team.text
-team
-
-
-# In[18]:
-
-
-rating = soup.find('div',class_="rankings-block__banner--rating")
-rating=rating.text
-rating
-
-
-# In[19]:
-
-
-players = []
-for i in soup.find_all('td',class_="table-body__cell rankings-table__name name"):
-    players.append(i.text)
-players=players[:9]
-players.insert(0,formated_player)
-print(players)
-
-
-# In[20]:
-
-
-teams = []
-for i in soup.find_all('span',class_="table-body__logo-text"):
-    teams.append(i.text)
-teams=teams[:9]
-teams.insert(0,team)
-print(teams)
-
-
-# In[21]:
-
-
-ratings = []
-for i in soup.find_all('td',class_="table-body__cell rating"):
-    ratings.append(i.text)
-ratings=ratings[:9]
-ratings.insert(0,rating)
-print(ratings)
-
-
-# In[22]:
-
-
-df=pd.DataFrame({'Players':players,'Teams':teams,'Ratings':ratings})
-df
-
-
-# # Top 10 ODI bowlers along with the records of their team andrating.
-
-# In[23]:
-
-
-from bs4 import BeautifulSoup
-import requests
-import pandas as pd
-
-
-# In[24]:
-
-
-page = requests.get("https://www.icc-cricket.com/rankings/mens/player-rankings/odi/bowling")
-page
-
-
-# In[25]:
-
-
-soup = BeautifulSoup(page.content)
-soup
-
-
-# In[26]:
-
-
-player =soup.find('div',class_="rankings-block__banner--name-large")
-formated_player=player.text
-formated_player
-
-
-# In[27]:
-
-
-team = soup.find('div',class_="rankings-block__banner--nationality")
-team=team.text
-team
-
-
-# In[28]:
-
-
-rating = soup.find('div',class_="rankings-block__banner--rating")
-rating=rating.text
-rating
-
-
-# In[29]:
-
-
-players = []
-for i in soup.find_all('td',class_="table-body__cell rankings-table__name name"):
-    players.append(i.text)
-players=players[:9]
-players.insert(0,formated_player)
-print(players)
-
-
-# In[30]:
-
-
-teams = []
-for i in soup.find_all('span',class_="table-body__logo-text"):
-    teams.append(i.text)
-teams=teams[:9]
-teams.insert(0,team)
-print(teams)
-
-
-# In[31]:
-
-
-ratings = []
-for i in soup.find_all('td',class_="table-body__cell rating"):
-    ratings.append(i.text)
-ratings=ratings[:9]
-ratings.insert(0,rating)
-print(ratings)
-
-
-# In[32]:
-
-
-df=pd.DataFrame({'Players':players,'Teams':teams,'Ratings':ratings})
-df
-
-
-# # Top 10 ODI teams in women’s cricket along with the records for matches, points and rating.
-
-# In[61]:
-
-
-from bs4 import BeautifulSoup
-import requests
-import pandas as pd
-
-
-# In[62]:
-
-
-page = requests.get("https://www.icc-cricket.com/rankings/womens/team-rankings/odi")
-page
-
-
-# In[63]:
-
-
-soup = BeautifulSoup(page.content)
-soup
-
-
-# In[64]:
-
-
-table = soup.find("table", class_="table")
-teams = []
-rows = table.tbody.find_all('tr')
-for row in rows:
-    cols = row.find_all("td")
-    teams.append(cols[1].get_text(strip=True))
-teams
-
-
-# In[65]:
-
-
-matches = []
-rows = table.tbody.find_all('tr')
-for row in rows:
-    cols = row.find_all("td")
-    matches.append(cols[2].get_text(strip=True))
-matches
-
-
-# In[66]:
-
-
-points = []
-
-rows =table.tbody.find_all('tr')
-for row in rows:
-    cols = row.find_all("td")
-    points.append(cols[3].get_text(strip=True))
-points
-
-
-# In[67]:
-
-
-ratings =[]
-
-rows = table.tbody.find_all('tr')
-for row in rows:
-    cols = row.find_all("td")
-    ratings.append(cols[4].get_text(strip=True))
-ratings
-
-
-# In[68]:
-
-
-df = pd.DataFrame({'Teams':teams,'Matches':matches,'Points':points,'Ratings':ratings})
-df=df.head(10)
-df
-
-
-# # Top 10 women’s ODI Batting players along with the records of their team and rating.
-
 # In[9]:
 
 
@@ -520,7 +265,7 @@ import pandas as pd
 # In[10]:
 
 
-page = requests.get("https://www.icc-cricket.com/rankings/womens/player-rankings/odi/batting")
+page = requests.get("https://www.icc-cricket.com/rankings/mens/player-rankings/odi/batting")
 page
 
 
@@ -539,15 +284,15 @@ formated_player=player.text
 formated_player
 
 
-# In[13]:
+# In[17]:
 
 
 team = soup.find('div',class_="rankings-block__banner--nationality")
-team=team.text
+team=team.get_text(strip=True)
 team
 
 
-# In[14]:
+# In[25]:
 
 
 rating = soup.find('div',class_="rankings-block__banner--rating")
@@ -555,29 +300,29 @@ rating=rating.text
 rating
 
 
-# In[15]:
+# In[26]:
 
 
 players = []
 for i in soup.find_all('td',class_="table-body__cell rankings-table__name name"):
-    players.append(i.text)
+    players.append(i.get_text(strip=True))
 players=players[:9]
 players.insert(0,formated_player)
 print(players)
 
 
-# In[16]:
+# In[27]:
 
 
 teams = []
 for i in soup.find_all('span',class_="table-body__logo-text"):
-    teams.append(i.text)
+    teams.append(i.get_text(strip=True))
 teams=teams[:9]
 teams.insert(0,team)
 print(teams)
 
 
-# In[17]:
+# In[28]:
 
 
 ratings = []
@@ -588,7 +333,262 @@ ratings.insert(0,rating)
 print(ratings)
 
 
-# In[18]:
+# In[29]:
+
+
+df=pd.DataFrame({'Players':players,'Teams':teams,'Ratings':ratings})
+df
+
+
+# # Top 10 ODI bowlers along with the records of their team andrating.
+
+# In[31]:
+
+
+from bs4 import BeautifulSoup
+import requests
+import pandas as pd
+
+
+# In[32]:
+
+
+page = requests.get("https://www.icc-cricket.com/rankings/mens/player-rankings/odi/bowling")
+page
+
+
+# In[33]:
+
+
+soup = BeautifulSoup(page.content)
+soup
+
+
+# In[34]:
+
+
+player =soup.find('div',class_="rankings-block__banner--name-large")
+formated_player=player.text
+formated_player
+
+
+# In[35]:
+
+
+team = soup.find('div',class_="rankings-block__banner--nationality")
+team=team.get_text(strip=True)
+team
+
+
+# In[36]:
+
+
+rating = soup.find('div',class_="rankings-block__banner--rating")
+rating=rating.text
+rating
+
+
+# In[37]:
+
+
+players = []
+for i in soup.find_all('td',class_="table-body__cell rankings-table__name name"):
+    players.append(i.get_text(strip=True))
+players=players[:9]
+players.insert(0,formated_player)
+print(players)
+
+
+# In[38]:
+
+
+teams = []
+for i in soup.find_all('span',class_="table-body__logo-text"):
+    teams.append(i.get_text(strip=True))
+teams=teams[:9]
+teams.insert(0,team)
+print(teams)
+
+
+# In[39]:
+
+
+ratings = []
+for i in soup.find_all('td',class_="table-body__cell rating"):
+    ratings.append(i.text)
+ratings=ratings[:9]
+ratings.insert(0,rating)
+print(ratings)
+
+
+# In[40]:
+
+
+df=pd.DataFrame({'Players':players,'Teams':teams,'Ratings':ratings})
+df
+
+
+# # Top 10 ODI teams in women’s cricket along with the records for matches, points and rating.
+
+# In[41]:
+
+
+from bs4 import BeautifulSoup
+import requests
+import pandas as pd
+
+
+# In[42]:
+
+
+page = requests.get("https://www.icc-cricket.com/rankings/womens/team-rankings/odi")
+page
+
+
+# In[43]:
+
+
+soup = BeautifulSoup(page.content)
+soup
+
+
+# In[44]:
+
+
+table = soup.find("table", class_="table")
+teams = []
+rows = table.tbody.find_all('tr')
+for row in rows:
+    cols = row.find_all("td")
+    teams.append(cols[1].get_text(strip=True))
+teams
+
+
+# In[45]:
+
+
+matches = []
+rows = table.tbody.find_all('tr')
+for row in rows:
+    cols = row.find_all("td")
+    matches.append(cols[2].get_text(strip=True))
+matches
+
+
+# In[46]:
+
+
+points = []
+
+rows =table.tbody.find_all('tr')
+for row in rows:
+    cols = row.find_all("td")
+    points.append(cols[3].get_text(strip=True))
+points
+
+
+# In[47]:
+
+
+ratings =[]
+
+rows = table.tbody.find_all('tr')
+for row in rows:
+    cols = row.find_all("td")
+    ratings.append(cols[4].get_text(strip=True))
+ratings
+
+
+# In[48]:
+
+
+df = pd.DataFrame({'Teams':teams,'Matches':matches,'Points':points,'Ratings':ratings})
+df=df.head(10)
+df
+
+
+# # Top 10 women’s ODI Batting players along with the records of their team and rating.
+
+# In[49]:
+
+
+from bs4 import BeautifulSoup
+import requests
+import pandas as pd
+
+
+# In[50]:
+
+
+page = requests.get("https://www.icc-cricket.com/rankings/womens/player-rankings/odi/batting")
+page
+
+
+# In[51]:
+
+
+soup = BeautifulSoup(page.content)
+soup
+
+
+# In[52]:
+
+
+player =soup.find('div',class_="rankings-block__banner--name-large")
+formated_player=player.text
+formated_player
+
+
+# In[53]:
+
+
+team = soup.find('div',class_="rankings-block__banner--nationality")
+team=team.get_text(strip=True)
+team
+
+
+# In[54]:
+
+
+rating = soup.find('div',class_="rankings-block__banner--rating")
+rating=rating.text
+rating
+
+
+# In[55]:
+
+
+players = []
+for i in soup.find_all('td',class_="table-body__cell rankings-table__name name"):
+    players.append(i.get_text(strip=True))
+players=players[:9]
+players.insert(0,formated_player)
+print(players)
+
+
+# In[56]:
+
+
+teams = []
+for i in soup.find_all('span',class_="table-body__logo-text"):
+    teams.append(i.text)
+teams=teams[:9]
+teams.insert(0,team)
+print(teams)
+
+
+# In[57]:
+
+
+ratings = []
+for i in soup.find_all('td',class_="table-body__cell rating"):
+    ratings.append(i.text)
+ratings=ratings[:9]
+ratings.insert(0,rating)
+print(ratings)
+
+
+# In[58]:
 
 
 df=pd.DataFrame({'Players':players,'Teams':teams,'Ratings':ratings})
@@ -597,7 +597,7 @@ df
 
 # # Top 10 women’s ODI all-rounder along with the records of their team and rating.
 
-# In[19]:
+# In[59]:
 
 
 from bs4 import BeautifulSoup
@@ -605,21 +605,21 @@ import requests
 import pandas as pd
 
 
-# In[20]:
+# In[60]:
 
 
 page = requests.get("https://www.icc-cricket.com/rankings/womens/player-rankings/odi/all-rounder")
 page
 
 
-# In[21]:
+# In[61]:
 
 
 soup = BeautifulSoup(page.content)
 soup
 
 
-# In[22]:
+# In[62]:
 
 
 player =soup.find('div',class_="rankings-block__banner--name-large")
@@ -627,15 +627,15 @@ formated_player=player.text
 formated_player
 
 
-# In[23]:
+# In[64]:
 
 
 team = soup.find('div',class_="rankings-block__banner--nationality")
-team=team.text
+team=team.get_text(strip=True)
 team
 
 
-# In[24]:
+# In[65]:
 
 
 rating = soup.find('div',class_="rankings-block__banner--rating")
@@ -643,29 +643,29 @@ rating=rating.text
 rating
 
 
-# In[25]:
+# In[66]:
 
 
 players = []
 for i in soup.find_all('td',class_="table-body__cell rankings-table__name name"):
-    players.append(i.text)
+    players.append(i.get_text(strip=True))
 players=players[:9]
 players.insert(0,formated_player)
 print(players)
 
 
-# In[26]:
+# In[67]:
 
 
 teams = []
 for i in soup.find_all('span',class_="table-body__logo-text"):
-    teams.append(i.text)
+    teams.append(i.get_text(strip=True))
 teams=teams[:9]
 teams.insert(0,team)
 print(teams)
 
 
-# In[27]:
+# In[68]:
 
 
 ratings = []
@@ -676,7 +676,7 @@ ratings.insert(0,rating)
 print(ratings)
 
 
-# In[28]:
+# In[69]:
 
 
 df=pd.DataFrame({'Players':players,'Teams':teams,'Ratings':ratings})
@@ -686,7 +686,7 @@ df
 # # python program to scrape news details from https://www.cnbc.com/world/?region=world and make data frame-
 # i) Headline ii) Time iii) News Link
 
-# In[29]:
+# In[70]:
 
 
 import requests
@@ -694,21 +694,21 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 
-# In[30]:
+# In[71]:
 
 
 page = requests.get("https://www.cnbc.com/world/?region=world")
 page
 
 
-# In[31]:
+# In[72]:
 
 
 soup = BeautifulSoup(page.content)
 soup
 
 
-# In[32]:
+# In[80]:
 
 
 title = []
@@ -717,7 +717,7 @@ for i in soup.find_all('div',class_="RiverHeadline-headline RiverHeadline-hasThu
 title
 
 
-# In[39]:
+# In[81]:
 
 
 time =[]
@@ -726,7 +726,7 @@ for i in soup.find_all('span',class_="RiverByline-datePublished"):
 time
 
 
-# In[34]:
+# In[82]:
 
 
 link = []
@@ -735,27 +735,27 @@ for i in soup.find_all('a',class_="LatestNews-headline"):
 link
 
 
-# In[35]:
+# In[83]:
 
 
 len(title),len(time),len(link)
 
 
-# In[36]:
+# In[84]:
 
 
-title = title[:6]  
+title = title[:18]  
 print(title) 
 
 
-# In[37]:
+# In[85]:
 
 
-link = link[:6]  
+link = link[:18]  
 print(link) 
 
 
-# In[38]:
+# In[86]:
 
 
 df=pd.DataFrame({'Headline':title,'Time':time,'News Link':link})
@@ -765,7 +765,7 @@ df
 # # python program to scrape the details of most downloaded articles from AI in last 90 days.https://www.journals.elsevier.com/artificial-intelligence/most-downloaded-articles¶
 # i) Paper Title ii) Authors iii) Published Date iv) Paper URL
 
-# In[40]:
+# In[87]:
 
 
 import requests
@@ -773,21 +773,21 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 
-# In[41]:
+# In[88]:
 
 
 page = requests.get("https://www.journals.elsevier.com/artificial-intelligence/most-downloaded-articles")
 page
 
 
-# In[42]:
+# In[89]:
 
 
 soup= BeautifulSoup(page.content)
 soup
 
 
-# In[43]:
+# In[90]:
 
 
 title = []
@@ -796,7 +796,7 @@ for i in soup.find_all('h2',class_="sc-1qrq3sd-1 gRGSUS sc-1nmom32-0 sc-1nmom32-
 title
 
 
-# In[44]:
+# In[91]:
 
 
 authors=[]
@@ -805,7 +805,7 @@ for i in soup.find_all('span',class_="sc-1w3fpd7-0 dnCnAO"):
 authors
 
 
-# In[45]:
+# In[92]:
 
 
 dates=[]
@@ -815,7 +815,7 @@ for i in soup.find_all('span',class_="sc-1thf9ly-2 dvggWt"):
 dates
 
 
-# In[46]:
+# In[93]:
 
 
 url = []
@@ -824,13 +824,13 @@ for i in soup.find_all('a',class_="sc-5smygv-0 fIXTHm"):
 url
 
 
-# In[47]:
+# In[94]:
 
 
 len(title),len(authors),len(dates),len(url)
 
 
-# In[50]:
+# In[95]:
 
 
 df=pd.DataFrame({'Paper Title':title,'Authors':authors,'Published Date':dates,'Paper URL':url})
@@ -841,7 +841,7 @@ df
 # # Write a python program to scrape mentioned details from dineout.co.in and make data frame-
 # i) Restaurant name ii) Cuisine iii) Location iv) Ratings v) Image URL
 
-# In[51]:
+# In[96]:
 
 
 import requests
@@ -849,21 +849,21 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 
-# In[52]:
+# In[97]:
 
 
 page = requests.get("https://www.dineout.co.in/delhi-restaurants/buffet-special")
 page
 
 
-# In[53]:
+# In[98]:
 
 
 soup= BeautifulSoup(page.content)
 soup
 
 
-# In[54]:
+# In[99]:
 
 
 titles = []
@@ -872,7 +872,7 @@ for i in soup.find_all('a',class_="restnt-name ellipsis"):
 titles
 
 
-# In[55]:
+# In[100]:
 
 
 cuisine = []
@@ -881,7 +881,7 @@ for i in soup.find_all('span',class_="double-line-ellipsis"):
 cuisine
 
 
-# In[56]:
+# In[101]:
 
 
 locations = []
@@ -892,7 +892,7 @@ for i in soup.find_all('div',class_="restnt-loc ellipsis"):
 locations
 
 
-# In[57]:
+# In[102]:
 
 
 rating =[]
@@ -901,7 +901,7 @@ for i in soup.find_all('div',class_="restnt-rating rating-4"):
 rating
 
 
-# In[58]:
+# In[103]:
 
 
 images = []
@@ -911,11 +911,23 @@ for i in soup.find_all('img',class_="no-img"):
 images
 
 
-# In[59]:
+# In[104]:
 
 
 df=pd.DataFrame({'Restaurant Name':titles,'Cuisine':cuisine,'Locations': locations,'Rating':rating,'image URL':images})
 df
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
